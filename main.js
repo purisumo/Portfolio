@@ -2,26 +2,38 @@ import './main.css';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
-
+import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
+import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
 // Setup
 
 const scene = new THREE.Scene();
 
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-
 const renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector('#bg'),
 });
 
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild( renderer.domElement );
 camera.position.setZ(30);
 camera.position.setX(-3);
 
-renderer.render(scene, camera);
+window.addEventListener('resize', () => {
+  const newWidth = window.innerWidth;
+  const newHeight = window.innerHeight;
 
+  bloomPass.setSize(newWidth, newHeight);
+  composer.setSize(newWidth, newHeight);
+  camera.aspect = newWidth / newHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(newWidth, newHeight);
+});
+
+const renderScene = new RenderPass( scene, camera );
 // Torus
 
 // const geometry = new THREE.TorusGeometry(10, 3, 16, 100);
@@ -32,10 +44,10 @@ renderer.render(scene, camera);
 
 // Lights
 
-const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
 scene.add(ambientLight);
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
 directionalLight.position.set(5, 5, 5);
 scene.add(directionalLight);
 
@@ -48,36 +60,35 @@ scene.add(directionalLight);
 // const controls = new OrbitControls(camera, renderer.domElement);
 
 function addStar() {
-  const geometry = new THREE.SphereGeometry(0.25, 24, 24);
-  const material = new THREE.MeshStandardMaterial({ color: 0xffffff });
+  const geometry = new THREE.SphereGeometry(0.2, 24, 24);
+  const starColor = new THREE.Color(Math.random(), Math.random(), Math.random());
+  const material = new THREE.MeshStandardMaterial({ color: starColor, transparent: true, opacity: 0.1 });
   const star = new THREE.Mesh(geometry, material);
 
-  const [x, y, z] = Array(3)
-    .fill()
-    .map(() => THREE.MathUtils.randFloatSpread(100));
+  const [x, y, z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
 
   star.position.set(x, y, z);
   scene.add(star);
 
-  // Create a glow material for the star
-  const glowMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.5 });
+  const glowColor = new THREE.Color(Math.random(), Math.random(), Math.random());
+  const glowMaterial = new THREE.MeshBasicMaterial({ color: glowColor, transparent: true, opacity: 0.1 });
   const glowStar = new THREE.Mesh(geometry, glowMaterial.clone());
   glowStar.position.copy(star.position);
-  glowStar.scale.multiplyScalar(1.5); // Adjust the scale for the glow effect
+  glowStar.scale.multiplyScalar(1.2);
   scene.add(glowStar);
 }
 
-// Add stars with glow effect to the scene
-Array(200).fill().forEach(addStar);
 
-// Create glitch pass for glow effect
-const glitchPass = new GlitchPass();
-glitchPass.enabled = true;
+Array(300).fill().forEach(addStar);
 
-// Composer for post-processing effects
-const composer = new EffectComposer(renderer);
-composer.addPass(new RenderPass(scene, camera));
-composer.addPass(glitchPass);
+// Create Unreal Bloom pass
+const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 0, 1, 0.5);
+
+const outputPass = new OutputPass();
+
+const finalComposer = new EffectComposer( renderer );
+	finalComposer.addPass( renderScene );
+	finalComposer.addPass( outputPass );
 
 //Glass image
 const imageTexture = new THREE.TextureLoader().load('avatar.png');
@@ -125,8 +136,8 @@ glassMesh.add(imageMesh);
 
 
 //background
-const spaceTexture = new THREE.TextureLoader().load('1349840.png');
-scene.background = spaceTexture;
+// const spaceTexture = new THREE.TextureLoader().load('pxfuel.jpg');
+// scene.background = spaceTexture;
 
 const bgfog = new THREE.Scene(); bgfog.fog = new THREE.Fog( 0xcccccc, 10, 15 );
 // Avatar
@@ -154,7 +165,7 @@ scene.add(moon);
 
 // Rings 
 const saturnGeometry = new THREE.SphereGeometry(1, 32, 32);
-const saturnTexture = new THREE.TextureLoader().load('saturn.jpg');
+const saturnTexture = new THREE.TextureLoader().load('Earth.jpg');
 const saturnMaterial = new THREE.MeshStandardMaterial({ map: saturnTexture });
 const saturn = new THREE.Mesh(saturnGeometry, saturnMaterial);
 scene.add(saturn);
@@ -187,7 +198,7 @@ glassMesh.position.x = 4;
 function moveCamera() {
   const t = document.body.getBoundingClientRect().top;
   // moon.rotation.x += 0.05;
-  moon.rotation.y += 0.075;
+  // moon.rotation.y += 0.075;
   // moon.rotation.z += 0.05;
 
   glassMesh.rotation.y += 0.01;
@@ -206,14 +217,10 @@ moveCamera();
 function animate() {
   requestAnimationFrame(animate);
 
-  // torus.rotation.x += 0.01;
-  // torus.rotation.y += 0.005;
-  // torus.rotation.z += 0.01;
-
   moon.rotation.x += 0.005;
 
   // Rotate the glass mesh
-  glassMesh.rotation.y += 0.001;
+  glassMesh.rotation.y += 0.005;
   glassMesh.position.y = Math.sin(Date.now() * 0.001) * 1;
 
   // Rotate Saturn and the rings
@@ -221,6 +228,7 @@ function animate() {
   ring.rotation.y += 0.005;
 
   renderer.render(scene, camera);
+  finalComposer.render();
 }
 
 animate();
