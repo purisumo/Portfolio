@@ -7,10 +7,18 @@
         <link rel="icon" type="image/svg+xml" href="favicon.svg" />
 	</head>
 	<body>
+<video id="video" loop muted crossOrigin="anonymous" playsinline style="display:none">
+			<!-- <source src="textures/pano.webm"> -->
+			<!-- <source src="void-hole-moewalls-com.mp4"> -->
+</video>
         <canvas id="bg"></canvas>  
 <main>
-
-      <header class="rect">
+        <div>
+        <a class="arrow down" style="margin-left: 50vw;" id="hides">Down</a>
+      </div>
+</main>
+<main>
+      <header >
       <div class="neon" style="background-color: black;">
         <span class="text-neon" data-text="Hesam K.">Hesam K.</span>
         <span class="gradient"></span>
@@ -22,13 +30,12 @@
       </div>
       </header>
 
-
       <blockquote>
-        <p>I like making stuff and putting it on the internet</p>
+        <p>ABOUT ME </p>
       </blockquote>
 
       <section>
-        <h2>📜 Manifesto</h2>
+        <h2>📜 Small introduction</h2>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </p>
@@ -59,31 +66,34 @@
       </section>
 
       <blockquote>
-        <p>The best way out is always through <br>-Robert Frost</p>
+        <p>Some Quote <br>Some author</p>
       </blockquote>
 
       <section class="left">
-        <h2>🌮 Work History</h2>
+        <h2>🌮 Experience</h2>
 
-        <h3>McDonalds</h3>
+        <h3>Exp1</h3>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </p>
-        <h3>Burger King</h3>
+        <h3>Exp2</h3>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </p>
-        <h3>Taco Bell</h3>
+        <h3>Exp3</h3>
         <p>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
         </p>
 
       </section>
 
-      <blockquote>
-        <p>Thanks </p>
+      <blockquote >
+        <p>Bye Bye 🤫🧏‍♂️</p>
       </blockquote>
-
+      <div>
+        <div onclick="scrollToTop()" class="arrow up" style="margin-left: -32vw">Up</div>
+      </div>
 		<script type="module" src="/main.js"></script>
+    <script src="/extra.js"></script>
 	</body>
 </html>
