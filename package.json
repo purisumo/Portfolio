@@ -13,7 +13,6 @@
   "name": "portfolio",
   "description": "First Threejs project",
   "version": "1.0.0",
-  "main": "main.js",
   "author": "",
   "license": "ISC"
 }
