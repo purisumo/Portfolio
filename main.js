@@ -101,7 +101,7 @@ const finalComposer = new EffectComposer( renderer );
 	finalComposer.addPass( outputPass );
 
 //Glass image
-const imageTexture = new THREE.TextureLoader().load('./textures/avatar.png');
+const imageTexture = new THREE.TextureLoader().load('avatar.png');
 
 // Create the glass material with envMap set to the image mesh
 const glassMaterial = new THREE.MeshPhysicalMaterial({
@@ -167,8 +167,8 @@ glassMesh.add(imageMesh);
 
 // Moon
 
-const moonTexture = new THREE.TextureLoader().load('./textures/moon_texture.5400x2700.jpg');
-const normalTexture = new THREE.TextureLoader().load('./textures/Moon.Normal_8192x4096.jpg');
+const moonTexture = new THREE.TextureLoader().load('moon_texture.5400x2700.jpg');
+const normalTexture = new THREE.TextureLoader().load('Moon.Normal_8192x4096.jpg');
 
 const moon = new THREE.Mesh(
   new THREE.SphereGeometry(3, 32, 32),
@@ -189,27 +189,27 @@ const detail = 12;
 const loader = new THREE.TextureLoader();
 const earthgeometry = new THREE.IcosahedronGeometry(1, detail);
 const earthmaterial = new THREE.MeshPhongMaterial({
-  map: loader.load("./textures/2k_earth_daymap.jpg"),
-  specularMap: loader.load("./textures/02_earthspec1k.jpg"),
-  bumpMap: loader.load("./textures/01_earthbump1k.jpg"),
+  map: loader.load("2k_earth_daymap.jpg"),
+  specularMap: loader.load("02_earthspec1k.jpg"),
+  bumpMap: loader.load("01_earthbump1k.jpg"),
   bumpScale: 100,
 });
 const earthMesh = new THREE.Mesh(earthgeometry, earthmaterial);
 earthGroup.add(earthMesh);
 
 const lightsMat = new THREE.MeshBasicMaterial({
-  map: loader.load("./textures/2k_earth_nightmap.jpg"),
+  map: loader.load("2k_earth_nightmap.jpg"),
   blending: THREE.AdditiveBlending,
 });
 const lightsMesh = new THREE.Mesh(earthgeometry, lightsMat);
 earthGroup.add(lightsMesh);
 
 const cloudsMat = new THREE.MeshStandardMaterial({
-  map: loader.load("./textures/2k_earth_clouds.jpg"),
+  map: loader.load("2k_earth_clouds.jpg"),
   transparent: true,
   opacity: 1,
   blending: THREE.AdditiveBlending,
-  alphaMap: loader.load('./textures//05_earthcloudmaptrans.jpg'),
+  alphaMap: loader.load('05_earthcloudmaptrans.jpg'),
   // alphaTest: 0.3,
 });
 const cloudsMesh = new THREE.Mesh(earthgeometry, cloudsMat);
