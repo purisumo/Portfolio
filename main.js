@@ -368,7 +368,7 @@ function animate() {
   moon.rotation.x += 0.005;
 
   // Rotate the glass mesh
-  glassMesh.rotation.y += 0.005;
+  glassMesh.rotation.y += 0.001;
   glassMesh.position.y = Math.sin(Date.now() * 0.001) * 1;
 
   earthMesh.rotation.y += 0.002;
