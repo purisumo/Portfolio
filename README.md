@@ -15,3 +15,7 @@ npm install --save-dev vite
 
 run
 npx vite
+
+Demo
+
+https://purizumo.netlify.app
