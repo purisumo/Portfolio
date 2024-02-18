@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "deploy": "gh-pages -d dist"
+  },
   "dependencies": {
     "gh-pages": "^6.1.1",
     "three": "^0.161.0"
