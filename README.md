@@ -3,7 +3,7 @@ First Threejs project
 personal three js portfolio
 
 Installation
-
+Requirements: nodejs
 clone repository
 //
 
@@ -17,5 +17,5 @@ run
 npx vite
 
 Demo
-
+not optimized on mobile
 https://purizumo.netlify.app
