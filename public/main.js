@@ -1,15 +1,14 @@
-import './main.css';
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
-import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
-import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
-import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass.js';
-import { TextGeometry } from 'three/addons/geometries/TextGeometry.js';
+
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+
 // Setup
-import getStarfield from "./src/getStarfield.js";
-import { getFresnelMat } from "./src/getFresnelMat.js";
+import getStarfield from "/getStarfield.js";
+import { getFresnelMat } from "/getFresnelMat.js";
 
 THREE.Cache.enabled = true;
 

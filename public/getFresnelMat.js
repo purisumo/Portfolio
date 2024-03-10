@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import * as THREE from 'three';
 
 function getFresnelMat({rimHex = 0x0088ff, facingHex = 0x000000} = {}) {
   const uniforms = {
